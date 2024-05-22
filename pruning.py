@@ -141,9 +141,9 @@ def main():
 					"scheduler": scheduler.state_dict(),
 					'init_weight': initialization,
 				},
-				is_best=is_best,
-				save_path=args.save_dir,
-				name=state
+				args.save_dir,
+				state,
+				is_best,
 			)
 
 			plt.plot(all_results['train_acc'], label='train_acc')

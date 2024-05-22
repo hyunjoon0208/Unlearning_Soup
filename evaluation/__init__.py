@@ -1,4 +1,0 @@
-from evaluation.ic_test import interclass_confusion as ic_test
-from evaluation.mia_ver1 import membership_inference_attack as mia_ver1
-from evaluation.mia_ver2 import membership_inference_attack as mia_ver2
-from evaluation.mia_ver3 import membership_inference_attack as mia_ver3

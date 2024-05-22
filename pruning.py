@@ -122,7 +122,7 @@ def main():
 			print(optimizer.state_dict()['param_groups'][0]['lr'])
 			train_acc = train(model=model, train_loader=train_loader, criterion=criterion, optimizer=optimizer, epoch=epoch, args=args)
 			if args.prune_type == 'rewind_lt':
-				rewind_state = deepcopy(model.state_dict())
+				initialization = deepcopy(model.state_dict())
 
 			val_acc = validate(model = model, val_loader = val_loader, criterion = criterion, args = args)
 			all_results['train_acc'].append(train_acc)

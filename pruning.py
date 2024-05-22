@@ -181,10 +181,10 @@ def main():
 
 		if args.random_prune:
 			print('Random pruning')
-			model = pruning_model_random(model, args.rate)
+			pruning_model_random(model, args.rate)
 		else:
 			print('L1 pruning')
-			model = pruning_model(model, args.rate)
+			pruning_model(model, args.rate)
 		print('model')
 		print(model)
 		print('model.named_parameters()')

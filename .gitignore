@@ -3,4 +3,8 @@ __pycache__
 result
 data
 datasets
+<<<<<<< HEAD
 venv
+=======
+.ipynb_checkpoints/
+>>>>>>> 0fde95f (fix gitignore)

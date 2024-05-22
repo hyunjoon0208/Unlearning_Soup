@@ -185,7 +185,10 @@ def main():
 		else:
 			print('L1 pruning')
 			model = pruning_model(model, args.rate)
-		
+		print('model.named_parameters()')
+		for name, param in model.named_parameters():
+			print(name, param.size())
+		print('len(list(model.parameters())) :', len(list(model.parameters())))
 		remain_weight = check_sparsity(model)
 		current_mask = extract_mask(model.state_dict())
 		remove_prune(model)

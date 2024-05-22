@@ -153,8 +153,7 @@ def main():
 			plt.close()
 			print('Epoch {} took {} seconds'.format(epoch, time.time() - start_time))
 		torch.save(
-			model.state_dict(),
-				args.save_dir, "epoch_{}_rewind_weight.pt".format(epoch + 1)
+			model.state_dict(),os.path.join(args.save_dir, 'epoch_{}_weight.pt'.format(epoch + 1))
 		)
 
 		check_sparsity(model)

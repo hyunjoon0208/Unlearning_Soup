@@ -185,6 +185,8 @@ def main():
 		else:
 			print('L1 pruning')
 			model = pruning_model(model, args.rate)
+		print('model')
+		print(model)
 		print('model.named_parameters()')
 		for name, param in model.named_parameters():
 			print(name, param.size())

@@ -90,6 +90,7 @@ def prune_model_custom(model, mask_dict):
                 )
             else:
                 print("Can not find [{}] in mask_dict".format(mask_name))
+        print('name:', name)
 
 
 def remove_prune(model):

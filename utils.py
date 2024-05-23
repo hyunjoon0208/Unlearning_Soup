@@ -49,7 +49,7 @@ def save_checkpoint(state, save_path,name, is_best, filename='checkpoint.pth.tar
 	torch.save(state, file_path)
 	if is_best:
 		shutil.copyfile(file_path, os.path.join(save_path, str(name)+'model_best.pth.tar'))
-
+ 
 
 
 def load_checkpoint(device, save_path, pruning, filename="checkpoint.pth.tar"):

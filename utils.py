@@ -15,12 +15,11 @@ import time
 import numpy as np
 import torch
 from torchvision import transforms
-
+from evaluation import *
 from dataset import *
 from dataset import TinyImageNet
 #from imagenet import prepare_data
 from models import *
-
 __all__ = [
     "setup_model_dataset",
     "AverageMeter",
@@ -115,7 +114,7 @@ def setup_model_dataset(args):
         normalization = NormalizeByChannelMeanStd(
             mean=[0.4914, 0.4822, 0.4465], std=[0.2470, 0.2435, 0.2616]
         )
-        train_full_loader, val_loader, _,_,_,_ = cifar10_dataloaders(
+        train_loader, val_loader, test_loader, retain_train_loader, retain_test_loader, forget_loader = cifar10_dataloaders(
             batch_size=args.batch_size, data_dir=args.data, num_workers=args.workers
         )
         marked_loader, _, test_loader,_,_,_ = cifar10_dataloaders(
@@ -148,7 +147,47 @@ def setup_model_dataset(args):
 
         model.normalize = normalization
         print(model)
-        return model, train_full_loader, val_loader, test_loader, marked_loader
+        return model, train_loader, val_loader, test_loader, marked_loader
+    elif args.dataset == 'cifar10_retain':
+        classes = 10
+        normalization = NormalizeByChannelMeanStd(
+            mean=[0.4914, 0.4822, 0.4465], std=[0.2470, 0.2435, 0.2616]
+        )
+        train_loader, val_loader, test_loader, retain_train_loader, retain_test_loader, forget_loader = cifar10_dataloaders(
+            batch_size=args.batch_size, data_dir=args.data, num_workers=args.workers
+        )
+        marked_loader, _, test_loader,_,_,_ = cifar10_dataloaders(
+            batch_size=args.batch_size,
+            data_dir=args.data,
+            num_workers=args.workers,
+            class_to_replace=args.class_to_replace,
+            num_indexes_to_replace=args.num_indexes_to_replace,
+            indexes_to_replace=args.indexes_to_replace,
+            seed=args.seed,
+            only_mark=True,
+            shuffle=True,
+            no_aug=args.no_aug,
+        )
+
+        if args.train_seed is None:
+            args.train_seed = args.seed
+        setup_seed(args.train_seed)
+
+        if args.imagenet_arch:
+            model = model_dict[args.arch](num_classes=classes, imagenet=True)
+        elif args.arch == "swin_t":
+            model = swin_t(
+                window_size=4, num_classes=10, downscaling_factors=(2, 2, 2, 1)
+            )
+        else:
+            model = model_dict[args.arch](num_classes=classes)
+        
+        setup_seed(args.train_seed)
+
+        model.normalize = normalization
+        print(model)
+        return model, retain_train_loader, val_loader, retain_test_loader, test_loader, marked_loader,forget_loader
+    
     elif args.dataset == "svhn":
         classes = 10
         normalization = NormalizeByChannelMeanStd(

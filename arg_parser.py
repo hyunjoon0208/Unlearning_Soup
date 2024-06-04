@@ -26,6 +26,7 @@ def parse_args():
     )
     parser.add_argument(
         "--imagenet_arch",
+        default=False,
         action="store_true",
         help="architecture for imagenet size samples",
     )
@@ -62,7 +63,7 @@ def parse_args():
         type=str,
     )
     parser.add_argument("--mask", type=str, default=None, help="sparse model")
-
+    parser.add_argument("--models_dir", type=str, default=None, help="sparse model")
     ##################################### Training setting #################################################
     parser.add_argument("--batch_size", type=int, default=256, help="batch size")
     parser.add_argument("--lr", default=0.1, type=float, help="initial learning rate")

@@ -13,14 +13,11 @@ import pruner
 import unlearn
 import utils
 from trainer import validate
-import sys, logging
 
 
 def main():
 
     args = arg_parser.parse_args()
-    logging.basicConfig(filename=args.save_dir + "/unlearn.log", level=logging.INFO)
-    sys.stdout = open(args.save_dir + "/unlearn_stdout.txt", "w")
 
     if torch.cuda.is_available():
         torch.cuda.set_device(args.gpu)

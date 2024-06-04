@@ -94,11 +94,16 @@ class black_box_benchmarks(object):
         t_tr_acc = np.sum(self.t_tr_corr) / (len(self.t_tr_corr) + 0.0)
         t_te_acc = 1 - np.sum(self.t_te_corr) / (len(self.t_te_corr) + 0.0)
         mem_inf_acc = 0.5 * (t_tr_acc + t_te_acc)
-        print(
-            "For membership inference attack via correctness, the attack acc is {acc1:.3f}, with train acc {acc2:.3f} and test acc {acc3:.3f}".format(
-                acc1=mem_inf_acc, acc2=t_tr_acc, acc3=t_te_acc
-            )
-        )
+        # print(
+        #     "For membership inference attack via correctness, the attack acc is {acc1:.3f}, with train acc {acc2:.3f} and test acc {acc3:.3f}".format(
+        #         acc1=mem_inf_acc, acc2=t_tr_acc, acc3=t_te_acc
+        #     )
+        # )
+        print('_mem_inf_via_corr')
+        print('attack acc:', mem_inf_acc)
+        print('train acc:', t_tr_acc)
+        print('test acc:', t_te_acc)
+        print('-----------------------------------')
         return t_tr_acc, t_te_acc
 
     def _mem_inf_thre(self, v_name, s_tr_values, s_te_values, t_tr_values, t_te_values):
@@ -115,11 +120,16 @@ class black_box_benchmarks(object):
         t_tr_acc = t_tr_mem / (len(self.t_tr_labels) + 0.0)
         t_te_acc = t_te_non_mem / (len(self.t_te_labels) + 0.0)
         mem_inf_acc = 0.5 * (t_tr_acc + t_te_acc)
-        print(
-            "For membership inference attack via {n}, the attack acc is {acc1:.3f}, with train acc {acc2:.3f} and test acc {acc3:.3f}".format(
-                n=v_name, acc1=mem_inf_acc, acc2=t_tr_acc, acc3=t_te_acc
-            )
-        )
+        # print(
+        #     "For membership inference attack via {n}, the attack acc is {acc1:.3f}, with train acc {acc2:.3f} and test acc {acc3:.3f}".format(
+        #         n=v_name, acc1=mem_inf_acc, acc2=t_tr_acc, acc3=t_te_acc
+        #     )
+        # )
+        print('_mem_inf_thre')
+        print('attack acc:', mem_inf_acc)
+        print('train acc:', t_tr_acc)
+        print('test acc:', t_te_acc)
+        print('-----------------------------------')
         return t_tr_acc, t_te_acc
 
     def _mem_inf_benchmarks(self, all_methods=True, benchmark_methods=[]):

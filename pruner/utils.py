@@ -86,7 +86,7 @@ def prune_model_custom(model, mask_dict):
             mask_name = name + ".weight_mask"
             if mask_name in mask_dict.keys():
                 prune.CustomFromMask.apply(
-                    m, "weight", mask=mask_dict[name + ".weight_mask"]
+                    m, "weight", mask=mask_dict[name + ".weight"]
                 )
             else:
                 print("Can not find [{}] in mask_dict".format(mask_name))
